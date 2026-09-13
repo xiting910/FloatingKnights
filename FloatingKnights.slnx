@@ -1,0 +1,8 @@
+<Solution>
+  <Folder Name="/Others/">
+    <File Path=".editorconfig" />
+    <File Path=".gitattributes" />
+    <File Path=".gitignore" />
+  </Folder>
+  <Project Path="FloatingKnights.csproj" Id="24eec07a-a29a-4bc3-9dd7-f93bd54fdf41" />
+</Solution>

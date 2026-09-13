@@ -1,0 +1,14 @@
+# Normalize EOL for all files that Git considers text files.
+* text=auto eol=lf
+
+# Source code files
+*.cs text diff=csharp
+*.md text diff=markdown
+
+# Project files
+*.csproj text merge=union
+*.slnx text merge=union
+
+# Binary files
+*.png binary
+*.svg binary
