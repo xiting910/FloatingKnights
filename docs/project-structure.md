@@ -128,6 +128,27 @@ FloatingKnights/
 
 **规范**：`*.tscn` 用 **PascalCase**（`project.godot` 已设 `naming/scene_name_casing=1`）。能被两处以上使用的 UI/逻辑必须抽到 `components/`，禁止复制粘贴场景。
 
+**关卡场景的节点树约定**（`TileMapLayer` 的落点）：
+
+```
+Level01 (Node2D)                          关卡根，可挂 scripts/gameplay/ 下的关卡脚本
+├─ Background (TileMapLayer / Parallax2D) 视差或背景层，绘制在最下
+├─ Terrain (TileMapLayer)                 地面与墙体；Tile Set 指向 resources/tilesets/*.tres
+├─ Decoration (TileMapLayer)              装饰层（藤蔓、坑洞装饰），必须与 Terrain 分层
+├─ Entities (Node2D)                      玩家/敌人/道具的父容器
+│  ├─ Player                              实例化 scenes/characters/Player.tscn
+│  └─ Enemies (Node2D)
+├─ Camera2D                               跟随玩家
+└─ HUD (CanvasLayer)                      实例化 scenes/ui/HUD.tscn，不随镜头滚动
+```
+
+- `TileMapLayer` 是 `Node2D` 的子类，只放在 **2D 关卡场景**里；**不要**建在 UI 场景或角色场景里。
+- 绘制顺序由同级节点的**自上而下**顺序叠加 `z_index` 决定。地面必须在装饰之下，所以 `Terrain` 要排在 `Decoration` 前面。
+- 地面层与装饰层**必须是两个不同的 TileMapLayer**（同一层每格只能放一个瓦片，见 §7.3）。
+- 多个关卡共用同一套瓦片时，各自的 `TileMapLayer.Tile Set` 指向**同一个** `resources/tilesets/*.tres`。
+
+> **小技巧**：`TileSet` 资源只能通过某个 `TileMapLayer` 的检视面板创建。若想先把 TileSet 建好、关卡以后再搭，可在一个临时场景里建 `TileMapLayer` → 建好 TileSet 并 **Save As** 到 `resources/tilesets/` → 删掉那个临时场景。`.tres` 是独立资源，不受影响。
+
 ### 3.5 `scripts/` — C# 代码
 
 | 目录 | 放什么 |
