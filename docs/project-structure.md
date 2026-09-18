@@ -251,7 +251,22 @@ FloatingKnights/
 | 16×32 | 1 × 2 |
 | 16×48 | 1 × 3 |
 
-**操作**：执行 §7.1 第 5 步后，自动创建会把 32×32 的图案拆成 4 个 1×1、16×48 拆成 3 个——这是正常现象。把属于大图块的那几个小瓦片删掉，然后在大图块的**左上角那一格**上创建**多格瓦片**并设置其占据的格数（API 对应 `TileSetAtlasSource.create_tile(atlas_coords, size)`，另有 `get_tile_size_in_atlas()` 查询）。
+**操作（点击级）**：
+
+1. 执行 §7.1 第 5 步后，自动创建会把 32×32 的图案拆成 4 个 1×1、16×48 拆成 3 个——这是正常现象，不是出错。
+2. **先删掉**覆盖区域上的那些 1×1 瓦片：用顶部 **Eraser** 工具点掉，或右键 → `Delete`。
+   ⚠️ 必须先删：[godot#98170](https://github.com/godotengine/godot/issues/98170) 中 TileSet 维护者的原话是 "You cannot create big tiles on top of already created tiles. You need to remove the underlying tiles first."，这是为避免数据丢失的有意设计。
+3. 切到 **Select** 模式，鼠标悬停在 atlas 上时编辑器会显示提示 **"Hold shift to create big tiles"**；按住 **Shift** 拖拽出目标矩形（左上 → 右下），松手即创建一个多格瓦片。
+4. 在中间栏核对它占据的格数，应等于上表的"网格占比"。
+5. 大瓦片**必须是基础格尺寸的整数倍**。维护者说明："big tiles need to be constant multiplies, e.g. base size 16x16, big tiles 16x32, 32x32, 64x64 etc."（[godot#68299](https://github.com/godotengine/godot/issues/68299)）。任意不规则尺寸（如 24×24、120×102）**不支持**，那类需求要用 tile patterns 表达。
+
+对应 API（脚本化或核对状态时用）：
+
+| API | 作用 |
+|---|---|
+| `TileSetAtlasSource.create_tile(atlas_coords, size)` | 在指定坐标创建指定占格数的瓦片 |
+| `get_tile_size_in_atlas(atlas_coords)` | 查询某瓦片占据几格 |
+| `get_tile_at_coords(atlas_coords)` | 返回覆盖该坐标的瓦片的左上角坐标——说明**大瓦片会占用其覆盖区域内的所有坐标**，这正是第 2 步必须先删的原因 |
 
 **判断"该整体还是该拆开"的标准**（比尺寸更重要）：
 
