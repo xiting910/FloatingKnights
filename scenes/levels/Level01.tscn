@@ -4,5 +4,8 @@
 
 [node name="Level01" type="Node2D" unique_id=960107671]
 
-[node name="TileMapLayer" type="TileMapLayer" parent="." unique_id=767911428]
+[node name="Terrain" type="TileMapLayer" parent="." unique_id=767911428]
+tile_set = ExtResource("1_i2pqh")
+
+[node name="Decoration" type="TileMapLayer" parent="." unique_id=2041534048]
 tile_set = ExtResource("1_i2pqh")
