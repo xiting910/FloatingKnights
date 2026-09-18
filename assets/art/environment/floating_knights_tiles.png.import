@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bgd5co8snnncj"
-path="res://.godot/imported/FloatingKnightsTiles.png-47ba5ea17a23792df1fb9ce530318259.ctex"
+path="res://.godot/imported/floating_knights_tiles.png-f1f04ce841cf51a3934254614d1e65ee.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/art/environment/FloatingKnightsTiles.png"
-dest_files=["res://.godot/imported/FloatingKnightsTiles.png-47ba5ea17a23792df1fb9ce530318259.ctex"]
+source_file="res://assets/art/environment/floating_knights_tiles.png"
+dest_files=["res://.godot/imported/floating_knights_tiles.png-f1f04ce841cf51a3934254614d1e65ee.ctex"]
 
 [params]
 
